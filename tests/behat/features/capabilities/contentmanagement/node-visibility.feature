@@ -7,10 +7,10 @@ Feature: Visibility
   Scenario: Successfully create topic visible for community and public
     Given I am logged in as an "verified"
     And I am on "node/add/topic"
+    And I click radio button "Article"
     When I fill in "Title" with "This is a topic for community"
     And I fill in the "edit-body-0-value" WYSIWYG editor with "This is a topic for community"
     And I click radio button "Community"
-    And I click radio button "Article"
     And I press "Create topic"
     Then I should see "Topic This is a topic for community has been created."
     And I am on "node/add/topic"
