@@ -81,12 +81,14 @@ function social_event_invite_tokens($type, $tokens, array $data, array $options,
       if ($name == 'user_login_event_destination') {
         /** @var \Drupal\message\Entity\Message $message */
         $message = $data['message'];
-
+        
+        if ($message) {
         // Load the current Event enrollments so we can check duplicates.
         $storage = \Drupal::entityTypeManager()->getStorage('event_enrollment');
         /** @var \Drupal\social_event\EventEnrollmentInterface $event_enrollment */
         $event_enrollment = $storage->load($message->getFieldValue('field_message_related_object', 'target_id'));
-
+        }
+          
         if ($event_enrollment) {
           $event = $event_enrollment->get('field_event')->getString();
           $destination = Url::fromRoute('entity.node.canonical', ['node' => $event])
