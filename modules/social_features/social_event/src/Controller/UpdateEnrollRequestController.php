@@ -100,7 +100,10 @@ class UpdateEnrollRequestController extends ControllerBase {
 
     // Get the redirect destination we're given in the request for the response.
     $destination = $this->requestStack->getCurrentRequest()->query->get('destination');
-    assert(is_string($destination), new \InvalidArgumentException());
+    if (!$destination) {
+      $base = $this->requestStack->getCurrentRequest()->getSchemeAndHttpHost();
+      $destination = $base . "/node/{$node->id()}/all-enrollment-requests";
+    }
     return new RedirectResponse($destination);
   }
 
